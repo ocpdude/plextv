@@ -1,0 +1,97 @@
+# I am defining two volumes, one to store the configuration information and the other to store all the media (data)
+# Transcoding will be performed in memory (tmpfs)
+
+## plex /config - place on the local nfs server's ssd drive
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-config
+  namespace: plextv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  nfs:
+    path: /nfs/manual/plex/config
+    server: 172.16.1.5
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: "v1"
+kind: "PersistentVolumeClaim"
+metadata:
+  name: "pvc-plex-config"
+  namespace: plextv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ""
+  volumeMode: Filesystem
+
+### plex /media - placed on a NL volume
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-media
+  namespace: plextv
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 250Gi
+  nfs:
+    path: /nfs/manual/plex/media
+    server: 172.16.1.5
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: "v1"
+kind: "PersistentVolumeClaim"
+metadata:
+  name: "pvc-plex-media"
+  namespace: plextv
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 250Gi
+  storageClassName: ""
+  volumeMode: Filesystem
+
+### plex /transcode - placed on a NVMe volume
+# This is OPTIONAL as putting it in memory hogged up about 10g of RAM.
+# If you wish to use memory, I've left that setting in the plex-deployment.yaml.
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: plex-transcode
+#   namespace: plextv
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   capacity:
+#     storage: 25Gi
+#   nfs:
+#     path: /nfs/manual/plex/transcode
+#     server: 172.16.1.5
+#   persistentVolumeReclaimPolicy: Retain
+# ---
+# apiVersion: "v1"
+# kind: "PersistentVolumeClaim"
+# metadata:
+#   name: "pvc-plex-transcode"
+#   namespace: plextv
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 25Gi
+#   storageClassName: ""
+#   volumeMode: Filesystem

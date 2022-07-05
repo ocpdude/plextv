@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex-deploy
+  namespace: plextv
+  labels:
+    app: plextv
+  annotations:
+    openshift.io/scc: anyuid
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: plextv
+  template:
+    metadata:
+      labels:
+        app: plextv
+    spec:
+      serviceAccountName: plex-sa
+      hostname: okd-plex
+      containers:
+      - name: plextv
+        image: shaker242/plex:latest
+        imagePullPolicy: Always
+        # resources:
+        #     limits:
+        #       cpu: 500m
+        #       memory: 1Gi
+        readinessProbe:
+          httpGet:
+            path: /identity
+            port: 32400
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /identity
+            port: 32400
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+        ports:
+          - name: plex
+            containerPort: 32400
+          - name: http
+            containerPort: 32400
+          - name: https
+            containerPort: 32443
+        env:
+        - name: TZ
+          value: "America/New_York"
+        - name: PLEX_CLAIM
+          value: claim-idZutMsYv-Vgx5K-dXjt # claims only last 4 mins
+        - name: ALLOWED_NETWORKS #skip logins from trusted networks
+          value: 192.168.11.0/24,172.16.1.0/26
+        volumeMounts:
+          - name: plex-config
+            mountPath: /config
+          - name: plex-transcode
+            mountPath: /transcode
+          - name: plex-media
+            mountPath: /media
+      volumes:
+      - name: plex-config
+        persistentVolumeClaim:
+          claimName: pvc-plex-config
+      - name: plex-transcode
+        persistentVolumeClaim:
+          # claimName: pvc-plex-transcode
+        emptyDir:
+          medium: Memory
+          sizeLimit: 1Gi
+      - name: plex-media
+        persistentVolumeClaim:
+          claimName: pvc-plex-media

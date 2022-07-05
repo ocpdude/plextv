@@ -1,0 +1,13 @@
+#!/usr/bin/with-contenv bash
+
+
+UMASK_SET=${UMASK_SET:-022}
+
+umask "$UMASK_SET"
+
+echo "Starting Plex Media Server."
+export PLEX_MEDIA_SERVER_INFO_MODEL=$(uname -m)
+export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION=$(uname -r)
+exec \
+	s6-setuidgid abc /bin/bash -c \
+	'LD_LIBRARY_PATH=/usr/lib/plexmediaserver:/usr/lib/plexmediaserver/lib /usr/lib/plexmediaserver/Plex\ Media\ Server'

@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: plex-port
+  namespace: plextv
+  labels:
+    app: plextv
+spec:
+  type: NodePort
+  ports:
+    - name: plex
+      port: 32400
+      protocol: TCP
+      targetPort: 32400
+      nodePort: 32400
+  selector:
+    app: plextv
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: plex-web
+  namespace: plextv
+  labels:
+    app: plextv
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: plex
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 32443
+  selector:
+    app: plextv

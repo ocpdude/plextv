@@ -1,0 +1,26 @@
+# Use this pod definition if you want to active a single pod only.
+# This approach gives you a single IP on the MACVLAN 
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: cluster
+spec:
+  additionalNetworks: 
+  - name: macvlan-plex
+    namespace: default
+    type: Raw
+    rawCNIConfig: '{
+      "cniVersion": "0.3.1",
+      "name": "plex",
+      "master": "ens224",
+      "type": "macvlan",
+      "ipam": {
+        "type": "static",
+         "addresses": [
+           {
+             "address": "192.168.11.200/24",
+             "gateway": "192.168.11.1"
+           }  
+        ]
+      }
+    }'

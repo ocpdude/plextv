@@ -17,14 +17,9 @@ jobs:
     uses: ocpdude/reusable/.github/workflows/linter.yaml@main
     with:
       language: hadolint
-      
-  k8s-linter:
-    uses: ocpdude/reusable/.github/workflows/linter.yaml@main
-    with:
-      language: YamlLint, kubeval
 
   build_push:
-    needs: [ docker-linter, k8s-linter ]
+    needs: [ docker-linter ]
     name: Build image
     runs-on: [ ubuntu-latest ] 
     steps:
@@ -65,7 +60,16 @@ jobs:
           ${{env.REGISTRY}}/ocpdude/plextv:1.27.1
           docker.io/shaker242/plextv:latest
           docker.io/shaker242/minecraft:1.27.1
-          
+ 
+  k8s-linter:
+    needs: [ build_push ]
+    uses: ocpdude/reusable/.github/workflows/linter.yaml@main
+    with:
+      language: YamlLint, kubeval
+ 
+ # Insert deployment 
+ # needs: k8s-linter
+ 
   check_quality:
     needs: build_push
     runs-on: [ ubuntu-latest ]

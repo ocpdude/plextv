@@ -19,7 +19,7 @@ RUN apt-get update \
     && useradd -U -d /config -s /bin/false -u 10001 plex \
     && usermod -G users plex \
     && mkdir -p /config /transcode /media /run/s6 \
-    && unxz s6-overlay-x86_64.tar.xz \
+    && unxz /tmp/s6-overlay-x86_64.tar.xz \
     && tar xf /tmp/s6-overlay-x86_64.tar -C /
 
 # INSTALL PLEX

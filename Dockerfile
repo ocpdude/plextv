@@ -13,14 +13,14 @@ ADD ["https://github.com/just-containers/s6-overlay/releases/download/v3.1.1.2/s
      "/tmp/"]
 
 # PREP IMAGE
-RUN unxz s6-overlay-x86_64.tar.xz \
-    && tar xf /tmp/s6-overlay-x86_64.tar -C / \
-    && apt-get update \
-    && apt-get install -y curl sudo wget xmlstarlet uuid-runtime \
+RUN apt-get update \
+    && apt-get install -y xz-utils curl sudo wget xmlstarlet uuid-runtime \
     && useradd -d /apps -s /bin/false abc \
     && useradd -U -d /config -s /bin/false -u 10001 plex \
     && usermod -G users plex \
-    && mkdir -p /config /transcode /media /run/s6
+    && mkdir -p /config /transcode /media /run/s6 \
+    && unxz /tmp/s6-overlay-x86_64.tar.xz \
+    && tar xf /tmp/s6-overlay-x86_64.tar -C /
 
 # INSTALL PLEX
 RUN curl -o /tmp/plexmediaserver.deb -L "${PLEX_INSTALL}" \

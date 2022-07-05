@@ -14,10 +14,13 @@ env:
 jobs:
 
   docker-linter:
-    # Let's lint the Dockerfile before build 
     uses: ocpdude/reusable/.github/workflows/linter.yaml@main
     with:
       language: hadolint
+  k8s-linter:
+    uses: ocpdude/reusable/.github/workflows/linter.yaml@main
+    with:
+      language: YamlLint, kubeval
 
   k8s-linter:
     uses: ocpdude/reusable/.github/workflows/linter.yaml@main
@@ -25,7 +28,7 @@ jobs:
       language: YamlLint, kubeval
 
   build_push:
-    needs: docker-linter, k8s-linter
+    needs: docker-linter,k8s-linter
     name: Build image
     runs-on: [ ubuntu-latest ] 
     steps:

@@ -1,4 +1,6 @@
 # Plex Media Server
+[![PlexTV Builder](https://github.com/ocpdude/plextv/actions/workflows/plextv-builder.yaml/badge.svg)](https://github.com/ocpdude/plextv/actions/workflows/plextv-builder.yaml)
+
 Running a Plex Media Server on OpenShift 4.x 
 1. The Default Setup - this build covers deploying plex as a native container with a pod, service and route.
 2. The MACVLAN Setup - this build covers deploying plex as a native containter tied to a physical network interface and static ip address. \

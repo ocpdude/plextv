@@ -10,7 +10,7 @@ if [ ! -f "${PREFNAME}" ]; then
 	echo "Temporarily starting Plex Media Server."
 	export PLEX_MEDIA_SERVER_INFO_MODEL=$(uname -m)
 	export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION=$(uname -r)
-	s6-setuidgid abc /bin/bash -c \
+	s6-setuidgid plex /bin/bash -c \
 		'LD_LIBRARY_PATH=/usr/lib/plexmediaserver:/usr/lib/plexmediaserver/lib /usr/lib/plexmediaserver/Plex\ Media\ Server' & PID=$!
 	echo "Waiting for Plex to generate its config"
 	DBNAME="/config/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db-wal"

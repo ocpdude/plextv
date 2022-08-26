@@ -15,7 +15,7 @@ ADD ["https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.2/s
 # PREP IMAGE
 RUN tar zxf /tmp/s6-overlay-amd64.tar.gz -C / \
     && apt-get update \
-    && apt-get install -y curl sudo wget xmlstarlet uuid-runtime --no-install-recommends \
+    && apt-get install -y curl sudo wget xmlstarlet uuid-runtime \
     && useradd -d /apps -s /bin/false plex \
     && usermod -U -d /config -s /bin/false -u 10001 plex \
     && usermod -G users plex \

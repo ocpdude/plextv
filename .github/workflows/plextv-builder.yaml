@@ -57,9 +57,9 @@ jobs:
         push: true
         tags: |
           ${{env.REGISTRY}}/ocpdude/plextv:latest
-          ${{env.REGISTRY}}/ocpdude/plextv:1.28
+          ${{env.REGISTRY}}/ocpdude/plextv:1.28.1
           docker.io/shaker242/plextv:latest
-          docker.io/shaker242/plextv:1.28
+          docker.io/shaker242/plextv:1.28.1
  
   k8s-linter:
     needs: [ build_push ]

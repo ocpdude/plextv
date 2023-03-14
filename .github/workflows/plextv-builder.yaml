@@ -56,11 +56,12 @@ jobs:
       with:
         push: true
         tags: |
-          # ${{env.REGISTRY}}/ocpdude/plextv:latest
           ${{env.REGISTRY}}/ocpdude/plextv:1.28.1
-          # docker.io/shaker242/plextv:latest
           docker.io/shaker242/plextv:1.28.1
- 
+          
+     # docker.io/shaker242/plextv:latest
+     # ${{env.REGISTRY}}/ocpdude/plextv:latest
+           
   k8s-linter:
     needs: [ build_push ]
     uses: ocpdude/reusable/.github/workflows/linter.yaml@main

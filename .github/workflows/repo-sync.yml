@@ -16,5 +16,9 @@ jobs:
       with:
         source_repo: ${{ secrets.SOURCE_REPO }}
         source_branch: main
-        destination_branch: main
+        destination_branch: repo-sync
         github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: pull-request
+      run: |
+        gh_pr_up() { gh pr create $* || gh pr edit $* }
+        gh_pr_up --title "My pull request" --body "Description"

@@ -1,0 +1,20 @@
+name: Repo Sync
+
+on:
+  # schedule: 
+  # - cron: "*/15 * * * *" # every 15 minutes. set to whatever interval you like
+  workflow_dispatch:
+  
+jobs:
+  repo-sync:
+    name: Repo Sync
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ocpdude/repo-sync@main
+      name: Sync repo to branch
+      with:
+        source_repo: ${{ secrets.SOURCE_REPO }}
+        source_branch: main
+        destination_branch: main
+        github_token: ${{ secrets.GITHUB_TOKEN }}

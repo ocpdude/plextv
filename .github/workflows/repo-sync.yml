@@ -10,7 +10,7 @@ jobs:
     name: Repo Sync
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: ocpdude/repo-sync@main
       name: Sync repo to branch
       with:

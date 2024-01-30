@@ -2,10 +2,10 @@ name: Linting Kubernetes ☸️
 on:
  pull_request:
     branches:
-    - '!main'
+    - 'main'
     paths: 
-    - './**.yaml'
-    - './**.yml'
+    - './manifests/**.yaml'
+    - './manifests/**.yml'
         
  workflow_dispatch:
 

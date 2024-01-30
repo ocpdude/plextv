@@ -2,14 +2,13 @@ name: Linting Dockerfiles 🐳
 on:
  pull_request:
     branches:
-    - '!main'
+    - 'main'
     paths: 
     - Dockerfile
 
  workflow_dispatch:
 
 jobs:
-    
   docker-lint:
     uses: ocpdude/reusable/.github/workflows/linter.yaml@main
     with:

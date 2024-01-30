@@ -7,7 +7,7 @@ Running a Plex Media Server on OpenShift 4.x
 *Visit /macvlan for this setup*
 
 ### Build your image
-You can build your own image using my Dockerfile as a reference, or just pull the image I created as shaker242/plextv:latest. \
+You can build your own image using my Dockerfile as a reference, or just pull the image I created as shaker242/plex:latest. \
 `podman build -t ORG/REPO:TAG .` 
 
 Notes:
@@ -22,31 +22,31 @@ Notes:
 `oc new-project plex --display-name "Plex Media Server"`
 
 2. Apply RBAC and create your SA \
-`oc create -f plex-rbac.yaml`
+`oc create -f ./manifests/plex-rbac.yaml`
 
 3. Apply scc-anyuid to your SA in the plex namespace \
 `oc adm policy add-scc-to-user anyuid -z plex-sa -n plex`
 
-4. Create the PVC's for /config /media /transcode _(optional)_ \
-`oc create -f plex-nfs.yaml`
+4. Create the PVC's for /config /media /transcode \
+`oc create -f ./manifests/plex-nfs.yaml`
 
 5. Deploy Plex \
-`oc create -f plex-deployment.yaml`
+`oc create -f ./manifests/plex-deployment.yaml`
 
 5. Link the services to our Deployment \
-`oc create -f plex-services.yaml`
+`oc create -f ./manifests/plex-services.yaml`
 
 6. Once everything checks out, you will have to load your claim key and reapply the deployment. \
-`oc apply -f plex-deployment.yaml`
+`oc apply -f ./manifests/plex-deployment.yaml`
 
 7. Plex is up, volumes are connected but now you'll need to install your routes and configure your media server. \
-`oc create -f plex-routes.yaml`
+`oc create -f ./manifests/plex-routes.yaml`
 
 8. Remote access, for this out of scope item you will have to create a port forward from your wan/ip to this container... mine goes like this \
-WAN/IP -> network port forward (port WAN/22400 -> port LAN LB/32400 NodePort) -> LB 32400 to Node:32400 -> Pod/Container:32400 \
+WAN/IP -> firewall port forward (port WAN/22400 -> port LAN LB/32400 NodePort) -> LB 32400 to Node:32400 -> Pod/Container:32400 \
 The external port 22400 is then manually set in Plex's remote settings.
 
-### _Example: NFS Exports_
+9. Example: NFS Exports
 ```
 /plex/config    *(rw,sync,no_subtree_check,no_wdelay,no_root_squash,insecure)
 /plex/transcode	*(rw,sync,no_subtree_check,no_wdelay,no_root_squash,insecure)
@@ -54,7 +54,7 @@ The external port 22400 is then manually set in Plex's remote settings.
 ```
 *Note: Remote mount the nfs volume (nfsserver:/plex/media) to upload, download and delete content.
 
-### _Example: Directory Permissions_ 
+10. Example: Directory Permissions \
 `chown -R /plex` \
 `chown nobody:nogroup /plex/media` 
 

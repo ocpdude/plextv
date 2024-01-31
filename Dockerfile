@@ -17,7 +17,7 @@ RUN \
       curl \
       xmlstarlet \
       uuid-runtime \
-      unrar \
+      unrar --no-install-recommends \
     && \
     \
 # Fetch and extract S6 overlay

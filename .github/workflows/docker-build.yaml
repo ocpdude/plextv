@@ -1,4 +1,4 @@
-name: Docker Custom Runner
+name: Docker PlexTV Builder
 
 on:
 

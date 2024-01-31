@@ -15,7 +15,7 @@ spec:
     storage: 1Gi
   nfs:
     path: /plex/config
-    server: #192.168.11.201
+    server: IP_ADDRESS
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: "v1"
@@ -45,7 +45,7 @@ spec:
     storage: 100Gi
   nfs:
     path: /plex/media
-    server: #192.168.11.201
+    server: IP_ADDRESS
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: "v1"

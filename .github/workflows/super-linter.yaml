@@ -31,7 +31,7 @@ jobs:
       - name: Kubernetes-linter
         uses: super-linter/super-linter/slim@v5.7.2
         env:
-        #   KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
+          KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
           FILTER_REGEX_INCLUDE: ./manifests/.*.yaml
           DEFAULT_BRANCH: main
           # To report GitHub Actions status checks

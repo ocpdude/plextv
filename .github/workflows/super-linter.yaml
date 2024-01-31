@@ -1,0 +1,47 @@
+name: Code Linter
+
+on:
+  workflow_call:
+
+  workflow_dispatch:
+    
+  pull_request:
+    branches:
+      - '!main'
+    paths: 
+      - 'manifests/**.yaml'
+      - 'Dockerfile'
+
+    
+jobs:
+  build:
+    name: Let's lint it up! 🎸
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Kubernetes-linter
+        uses: super-linter/super-linter/slim@v5.7.2
+        env:
+        #   KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
+          FILTER_REGEX_INCLUDE: ./manifests/.*.yaml
+          DEFAULT_BRANCH: main
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker-linter
+        uses: super-linter/super-linter/slim@v5.7.2
+        env:
+        #   HADOLINT_IGNORE: DL3003,DL3004,DL3007,DL3029,DL3041,DL4006
+          FILTER_REGEX_INCLUDE: .*Dockerfile
+          DEFAULT_BRANCH: main
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

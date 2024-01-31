@@ -1,5 +1,7 @@
+[![Docker PlexTV Builder](https://github.com/ocpdude/plextv/actions/workflows/docker-build.yaml/badge.svg)](https://github.com/ocpdude/plextv/actions/workflows/docker-build.yaml)
+[![Code Linter](https://github.com/ocpdude/plextv/actions/workflows/super-linter.yaml/badge.svg)](https://github.com/ocpdude/plextv/actions/workflows/super-linter.yaml)
+
 # Plex Media Server
-[![Docker Image Builder](https://github.com/ocpdude/plextv/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ocpdude/plextv/actions/workflows/docker-image.yml) [![Linting Dockerfiles 🐳](https://github.com/ocpdude/plextv/actions/workflows/dockerfile-lint.yaml/badge.svg)](https://github.com/ocpdude/plextv/actions/workflows/dockerfile-lint.yaml) [![Linting Kubernetes ☸️](https://github.com/ocpdude/plextv/actions/workflows/kubernetes-lint.yaml/badge.svg)](https://github.com/ocpdude/plextv/actions/workflows/kubernetes-lint.yaml)
 
 Running a Plex Media Server on OpenShift 4.x 
 1. The Default Setup - this build covers deploying plex as a native container with a pod, service and route.

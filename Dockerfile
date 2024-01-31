@@ -1,5 +1,8 @@
 FROM ubuntu:22.04
 
+LABEL org.opencontainers.image.description "Plex Media Server" \
+      org.opencontainers.image.source="https://github.com/ocpdude/plextv"
+
 ARG S6_OVERLAY_VERSION=v2.2.0.3
 ARG S6_OVERLAY_ARCH=amd64
 ARG PLEX_BUILD=linux-x86_64

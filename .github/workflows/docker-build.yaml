@@ -82,7 +82,7 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{env.REGISTRY}}/ocpdude/plextv:${{ steps.date.outputs.date }}
+            ${{env.REGISTRY}}/ocpdude/plextv:${{ env.VERSION }}
             ${{env.REGISTRY}}/ocpdude/plextv:latest
-            shaker242/plextv:${{ steps.date.outputs.date }}
+            shaker242/plextv:${{ env.VERSION }}
             shaker242/plextv:latest    

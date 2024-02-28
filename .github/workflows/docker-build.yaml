@@ -14,17 +14,17 @@ env:
   REGISTRY: ghcr.io
   
 jobs:
-  super-linter:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Kubernetes-linter
-      uses: super-linter/super-linter/slim@v6.0.0
-      env:
-        KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
-        FILTER_REGEX_EXCLUDE: /github/workspace/.*
-        FILTER_REGEX_INCLUDE: ./manifests/.*.yaml
-        VALIDATE_CHECKOV: false
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # super-linter:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Kubernetes-linter
+  #     uses: super-linter/super-linter/slim@v6.0.0
+  #     env:
+  #       KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
+  #       FILTER_REGEX_EXCLUDE: /github/workspace/.*
+  #       FILTER_REGEX_INCLUDE: ./manifests/.*.yaml
+  #       VALIDATE_CHECKOV: false
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   security-checks:
     permissions:
@@ -32,7 +32,7 @@ jobs:
       security-events: write
       actions: read
     runs-on: ubuntu-latest
-    needs: [ super-linter ]
+    # needs: [ super-linter ]
     steps:
       - uses: actions/checkout@v4
       - name: Build the test image

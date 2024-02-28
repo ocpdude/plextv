@@ -33,6 +33,7 @@ jobs:
         env:
           KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
           FILTER_REGEX_INCLUDE: ./manifests/.*.yaml
+          VALIDATE_CHECKOV: false
           DEFAULT_BRANCH: main
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

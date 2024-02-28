@@ -15,7 +15,14 @@ env:
   
 jobs:
   super-linter:
-    uses: ocpdude/plextv/.github/workflows/super-linter.yaml@main
+    runs-on: ubuntu-latest
+    steps:
+    - name: Kubernetes-linter
+      uses: super-linter/super-linter/slim@v6.0.0
+      env:
+        KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
+        FILTER_REGEX_INCLUDE: ./manifests/.*.yaml
+        VALIDATE_CHECKOV: false
 
   security-checks:
     permissions:

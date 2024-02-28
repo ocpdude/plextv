@@ -45,9 +45,10 @@ jobs:
     needs: [ security-checks, super-linter ]
     runs-on: ubuntu-latest
     steps:
-      - name: Get the date
-        id: date
-        run: echo "::set-output name=date::$(date +'%m%d')"
+      - name: Extract Plex TV version
+        id: plextv_version
+        run: echo "VERSION=$(grep "URL" Dockerfile | sed -n 's|.*plex-media-server-new/\([^/]*\)/.*|\1|p' | awk -F. '{print $1"."$2"."$3}')" >> $GITHUB_ENV
+        shell: bash
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU

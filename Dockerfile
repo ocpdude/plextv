@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-LABEL org.opencontainers.image.description "Plex Media Server" \
+LABEL org.opencontainers.image.description="Plex Media Server" \
       org.opencontainers.image.source="https://github.com/ocpdude/plextv"
 
 ARG S6_OVERLAY_VERSION=v2.2.0.3
@@ -53,7 +53,7 @@ ENV CHANGE_CONFIG_DIR_OWNERSHIP="true" \
     HOME="/config"
 
 ARG TAG=public
-ARG URL=https://downloads.plex.tv/plex-media-server-new/1.32.8.7639-fb6452ebf/debian/plexmediaserver_1.32.8.7639-fb6452ebf_amd64.deb
+ARG URL=https://downloads.plex.tv/plex-media-server-new/1.40.0.7998-c29d4c0c8/debian/plexmediaserver_1.40.0.7998-c29d4c0c8_amd64.deb
 
 COPY root/ /
 

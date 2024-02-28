@@ -51,7 +51,7 @@ jobs:
           sarif_file: ${{ steps.scan.outputs.sarif }}
 
   build-deployment:
-    needs: [ security-checks, super-linter ]
+    needs: [ security-checks ]
     runs-on: ubuntu-latest
     steps:
       - name: Extract Plex TV version

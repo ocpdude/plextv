@@ -23,6 +23,7 @@ jobs:
         KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
         FILTER_REGEX_INCLUDE: ./manifests/.*.yaml
         VALIDATE_CHECKOV: false
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   security-checks:
     permissions:

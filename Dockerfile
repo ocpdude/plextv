@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:jammy
 
 LABEL org.opencontainers.image.description="Plex Media Server" \
       org.opencontainers.image.source="https://github.com/ocpdude/plextv"
@@ -53,7 +53,7 @@ ENV CHANGE_CONFIG_DIR_OWNERSHIP="true" \
     HOME="/config"
 
 ARG TAG=public
-ARG URL=https://downloads.plex.tv/plex-media-server-new/1.40.0.7998-c29d4c0c8/debian/plexmediaserver_1.40.0.7998-c29d4c0c8_amd64.deb
+ARG URL=https://downloads.plex.tv/plex-media-server-new/1.40.1.8227-c0dd5a73e/debian/plexmediaserver_1.40.1.8227-c0dd5a73e_amd64.deb
 
 COPY root/ /
 

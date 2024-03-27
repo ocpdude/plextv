@@ -29,7 +29,7 @@ jobs:
           fetch-depth: 0
 
       - name: Kubernetes-linter
-        uses: super-linter/super-linter/slim@v6.0.0
+        uses: super-linter/super-linter/slim@v6.3.0
         env:
           KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
           FILTER_REGEX_INCLUDE: ./manifests/.*.yaml
@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker-linter
-        uses: super-linter/super-linter/slim@v6.0.0
+        uses: super-linter/super-linter/slim@v6.3.0
         env:
           HADOLINT_IGNORE: DL3008
           FILTER_REGEX_INCLUDE: .*Dockerfile

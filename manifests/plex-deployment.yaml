@@ -24,7 +24,7 @@ spec:
       hostname: okd-plex
       containers:
         - name: plextv
-          image: shaker242/plex:latest
+          image: shaker242/plextv:latest
           imagePullPolicy: Always
           # resources:
           #     limits:
